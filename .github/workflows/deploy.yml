@@ -23,13 +23,14 @@ jobs:
         run: swift run --configuration release
         # 만약 안 먹히면, build -> .build/release/KoreanSwiftStudentSite
 
-      - name: 파일 복사
-        run: |
+      - name: Pages 설정
+        uses: actions/configure-pages@v5
+
+      - name: Artifact 업로드
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './Build'
           
       - name: 배포
-        uses: peaceiris/actions-gh-pages@v3
-        with: 
-          personal_token: ${{ secrets.PERSONAL_TOKEN }}
-          external_repository: wwdc-kr/wwdc-kr.github.io
-          publish_branch: deploy-test # TODO: main
-          publish_dir: ./Build/
+        id: deployment
+        uses: actions/deploy-pages@v4
