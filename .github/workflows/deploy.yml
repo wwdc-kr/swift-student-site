@@ -1,0 +1,37 @@
+name: 사이트 배포
+
+on:
+  push:
+    branches: [ "main" ]
+  
+  # Action 탭에서 워크플로우 수동 실행 허용
+  workflow_dispatch:
+
+jobs:
+  build:
+    permissions:
+      id-token: write
+      contents: read
+      deployments: write
+      pages: write
+    
+    runs-on: macos-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      - uses: swift-actions/setup-swift@v2
+      
+      - name: 스위프트 패키지 실행
+        run: swift run --configuration release
+
+      - name: Pages 설정
+        uses: actions/configure-pages@v5
+
+      - name: Artifact 업로드
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './Build'
+          
+      - name: 배포
+        id: deployment
+        uses: actions/deploy-pages@v4
