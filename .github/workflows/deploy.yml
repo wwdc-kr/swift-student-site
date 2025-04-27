@@ -2,7 +2,7 @@ name: 사이트 배포
 
 on:
   push:
-    branches: [ "deploy-test" ] # TODO: main 으로 변경
+    branches: [ "main" ]
   
   # Action 탭에서 워크플로우 수동 실행 허용
   workflow_dispatch:
@@ -23,7 +23,6 @@ jobs:
       
       - name: 스위프트 패키지 실행
         run: swift run --configuration release
-        # 만약 안 먹히면, build -> .build/release/KoreanSwiftStudentSite
 
       - name: Pages 설정
         uses: actions/configure-pages@v5
