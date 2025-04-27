@@ -1,0 +1,37 @@
+name: 사이트 배포
+
+on:
+  push:
+    branches: [ "deploy-test" ] # TODO: main 으로 변경
+  
+  # Action 탭에서 워크플로우 수동 실행 허용
+  workflow_dispatch:
+
+jobs:
+  build:
+    permissions:
+      contents: read
+      deployments: write
+    
+    runs-on: macos-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Swift 설정
+        run: swift-actions/setup-swift@v2
+      
+      - name: 스위프트 패키지 실행
+        run: swift run --configuration release
+        # 만약 안 먹히면, build -> .build/release/KoreanSwiftStudentSite
+
+      - name: 파일 복사
+        run: |
+          
+      - name: 배포
+        uses: peaceiris/actions-gh-pages@v3
+        with: 
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          external_repository: wwdc-kr/wwdc-kr.github.io
+          publish_branch: deploy-test # TODO: main
+          publish_dir: ./Build/
