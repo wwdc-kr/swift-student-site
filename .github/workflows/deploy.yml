@@ -13,6 +13,7 @@ jobs:
       id-token: write
       contents: read
       deployments: write
+      pages: write
     
     runs-on: macos-latest
     
