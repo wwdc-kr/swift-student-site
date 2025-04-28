@@ -1,7 +1,7 @@
 import Ignite
 import Foundation
 
-struct Home: StaticPage {
+struct HomePage: StaticPage {
     var title = ""
     
     let logoImagePath = "/images/logo.png"
@@ -22,23 +22,24 @@ struct Home: StaticPage {
                     Image(decorative: string)
                         .resizable()
                         .frame(maxHeight: logoLength)
-                        .margin(.vertical, .percent(Percentage(10)))
+                        .margin(.vertical, 96)
                 } else {
                     Text(string)
                         .font(.lead)
+                        .fontWeight(.regular)
                         .horizontalAlignment(.center)
                         .foregroundStyle(.black)
                 }
             }
-            .margin(.bottom, .px(120))
+            .margin(.bottom, .px(100))
             
-            CenterAlignedGrid(URLLink.allCases, columns: 5) { urlLink in
-                CommunityComponent(
-                    urlLink: urlLink,
-                    size: (width: buttonLength, height: buttonLength)
-                )
-                .horizontalAlignment(.center)
-                .margin(.bottom, .px(32))
+            Text {
+                ForEach(URLLink.allCases) { urlLink in
+                    CommunityComponent(
+                        urlLink: urlLink,
+                        size: (width: buttonLength, height: buttonLength)
+                    )
+                }
             }
             
             MainFooter()

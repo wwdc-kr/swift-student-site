@@ -16,17 +16,19 @@ struct IgniteWebsite {
 
 struct SimpleSite: Site {
     var name = "Korean Swift Students"
-    var titleSuffix = " 🇰🇷 Swift Students"
+    var titleSuffix = " - 🇰🇷 Swift Students"
     var description: String? = "WWDC Scholars & Swift Student Challenge Winners in South Korea 🇰🇷"
     
     var language: Language = .korean
     
     var url = URL(static: "https://wwdc.kr")
-    var homePage = Home()
+    var homePage = HomePage()
     var layout = MainLayout()
     var favicon = URL(string: "/images/favicon.png")
     
     var staticPages: [any StaticPage] {
-        Home()
+        HomePage()
+        
+        EventPage()
     }
 }
